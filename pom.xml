@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.ucla.library</groupId>
+  <artifactId>slack-test</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>slack-test</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <!-- Dependency versions -->
+    <junit.version>4.13.2</junit.version>
+    <jslack.version>1.7.8</jslack.version>
+    <logback.version>1.2.11</logback.version>
+    <surefire.version>2.22.2</surefire.version>
+
+    <!-- Slack configuration -->
+    <bucketeer.slack.test_user_handle>slack-test</bucketeer.slack.test_user_handle>
+    <bucketeer.slack.oauth_token>YOUR_SLACK_OAUTH_TOKEN</bucketeer.slack.oauth_token>
+    <bucketeer.slack.channel_id>dev-null</bucketeer.slack.channel_id>
+    <bucketeer.slack.error_channel_id>dev-null</bucketeer.slack.error_channel_id>
+
+    <!-- JVM configuration -->
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+
+    <!-- File encoding configuration -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.seratch</groupId>
+      <artifactId>jslack</artifactId>
+      <version>${jslack.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <skipAfterFailureCount>1</skipAfterFailureCount>
+          <systemPropertyVariables>
+            <bucketeer.slack.test_user_handle>${bucketeer.slack.test_user_handle}</bucketeer.slack.test_user_handle>
+            <bucketeer.slack.oauth_token>${bucketeer.slack.oauth_token}</bucketeer.slack.oauth_token>
+            <bucketeer.slack.channel_id>${bucketeer.slack.channel_id}</bucketeer.slack.channel_id>
+            <bucketeer.slack.error_channel_id>${bucketeer.slack.error_channel_id}</bucketeer.slack.error_channel_id>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
